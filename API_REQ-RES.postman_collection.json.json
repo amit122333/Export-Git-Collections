@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "7ada0473-3e5a-43a3-a142-74ef91e7ea68",
+		"name": "API REQ-RES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20018448",
+		"_collection_link": "https://bold-firefly-882269.postman.co/workspace/Myworkspace1~858d43aa-939d-4ca5-b96d-af69e78f1919/collection/20018448-7ada0473-3e5a-43a3-a142-74ef91e7ea68?action=share&source=collection_link&creator=20018448"
+	},
+	"item": [
+		{
+			"name": "Get Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200 TC-01\", function () \r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Globvar}}api/users?page=2",
+					"host": [
+						"{{Globvar}}api"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Resquest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"bodydata = JSON.parse (responseBody);\r",
+							"\r",
+							"pm.test(\"verification of Status code 201 TC-02\", function () \r",
+							"{\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verification of name TC-03\",function()\r",
+							"{\r",
+							"    pm.expect(bodydata.name).to.equal(\"morpheus\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"verification of job TC-04\",function()\r",
+							"{\r",
+							"    pm.expect(bodydata.job).to.equal(\"leader\")\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set('name','morpheus');"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"job\": \"leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{QAEnv}}api/users",
+					"host": [
+						"{{QAEnv}}api"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"bodydata = JSON.parse (responseBody);\r",
+							"\r",
+							"pm.test(\"verification of Status code 200 TC-05\", function () \r",
+							"{\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verification of name TC-06\",function()\r",
+							"{\r",
+							"    pm.expect(bodydata.name).to.equal(\"morpheus\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"verification of job update TC-07\",function()\r",
+							"{\r",
+							"    pm.expect(bodydata.job).to.include(\"resident\")\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{CollEnv}}api/users/2",
+					"host": [
+						"{{CollEnv}}api"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verification of Status code is 204 TC-08\", function () \r",
+							"{\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "CollEnv",
+			"value": "https://reqres.in/",
+			"type": "string"
+		}
+	]
+}
